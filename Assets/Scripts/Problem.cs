@@ -9,10 +9,13 @@ public class Problem : MonoBehaviour
     private TextMeshProUGUI overheadText = null;
 
     [SerializeField]
-    private string tempText = "x = 1 + 1";
+    private string tempText = " = 1 + 1";
 
-    private void OnEnable()
+    private char problemChar;
+
+    public void AssignVariable(char variable)
     {
-        overheadText.text = tempText;
+        problemChar = variable;
+        overheadText.text = problemChar + tempText;
     }
 }
