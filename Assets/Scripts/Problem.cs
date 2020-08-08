@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.EventSystems;
 
 public class Problem : MonoBehaviour
 {
@@ -9,12 +10,20 @@ public class Problem : MonoBehaviour
     private TextMeshProUGUI overheadText = null;
 
     [SerializeField]
+    private TMP_InputField input;
+
+    [SerializeField]
     private string tempText = " = 1 + 1";
 
-    private char problemChar;
-    private bool active;
+    [SerializeField]
+    private SpriteRenderer target;
 
-    public void AssignVariable(char variable)
+    private char problemChar;
+    private bool listening;
+
+	public bool Listening { get => listening; set => listening = value; }
+
+	public void AssignVariable(char variable)
     {
         problemChar = variable;
         overheadText.text = problemChar + tempText;
@@ -22,9 +31,13 @@ public class Problem : MonoBehaviour
 
     private void Update()
     {
-        if(active)
+        if (Listening)
         {
-            ; // check answer
+            input.Select();
+            target.gameObject.SetActive(true);
         }
+        else target.gameObject.SetActive(false);
     }
+
+    public void Deselect() { input.text = ""; listening = false; Debug.Log("deselect"); }
 }
