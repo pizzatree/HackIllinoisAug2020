@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyMissileSpawner : MonoBehaviour
+public class EnemyManager : MonoBehaviour
 {
     [SerializeField]
     private GameObject[] enemies;
@@ -14,7 +14,7 @@ public class EnemyMissileSpawner : MonoBehaviour
     private float startingSpawnTime = 3f;
     private float spawnTime;
 
-    private float spawnXRange = 9;
+    private float spawnXRange = 9; // make dynamic with camera
 
     private void Start()
     {

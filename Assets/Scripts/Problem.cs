@@ -12,10 +12,19 @@ public class Problem : MonoBehaviour
     private string tempText = " = 1 + 1";
 
     private char problemChar;
+    private bool active;
 
     public void AssignVariable(char variable)
     {
         problemChar = variable;
         overheadText.text = problemChar + tempText;
+    }
+
+    private void Update()
+    {
+        if(active)
+        {
+            ; // check answer
+        }
     }
 }
