@@ -525,7 +525,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemies:
   - {fileID: 5189607767417217558, guid: d70fd7ab24a10844fa6af886ea49cdd1, type: 3}
-  - {fileID: 5171215618385384604, guid: 4266bef2e72822445a7a989fb7d01ce9, type: 3}
+  - {fileID: 1497206554341019031, guid: 4266bef2e72822445a7a989fb7d01ce9, type: 3}
   - {fileID: 4157203984045523269, guid: 509e4b9cff9cd9e4d9ea048febc1b770, type: 3}
   startingSpawnTime: 3
 --- !u!4 &1881192154
