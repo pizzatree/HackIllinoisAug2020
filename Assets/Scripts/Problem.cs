@@ -18,7 +18,7 @@ public class Problem : MonoBehaviour
         problemChar = variable;
         this.question = question;
         variableTF.text = variable + " =";
-        equationTF.text = question.Question(8);
+        equationTF.text = question.Question(difficulty);
 
         var eqTextSize = new Vector2(equationTF.text.Length, equationTF.rectTransform.rect.y);
         equationTF.rectTransform.sizeDelta = eqTextSize;
