@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class Add : iQuestion
+public class Subtract : iQuestion
 {
     private int x, y, z;
 
@@ -28,9 +28,9 @@ public class Add : iQuestion
         x = Random.Range(lower, upper);
         y = Random.Range(lower, upper);
 
-        z = x + y;
+        z = x - y;
 
         return x + "\n"
-              +"+ "+y;
+              + "- " + y;
     }
 }
