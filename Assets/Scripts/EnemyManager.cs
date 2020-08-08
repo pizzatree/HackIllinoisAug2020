@@ -34,6 +34,8 @@ public class EnemyManager : MonoBehaviour
         var newEnemy = Instantiate(enemy, spawnPoint, Quaternion.identity);
         newEnemy.GetComponent<Problem>().AssignProperties(variable, new Add(), 0); // GENERATE A QUESTION
 
+        activeEnemies.Add(variable, newEnemy.GetComponent<Problem>());
+
         Invoke("SpawnEnemy", spawnTime);
     }
 }

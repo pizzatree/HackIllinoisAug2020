@@ -32,7 +32,7 @@ public class Add : iQuestion
 
             z = x + y;
         }
-        else if(difficulty <= 8)
+        else if(difficulty >= 5)
         {
             x = Random.Range(100, 1000);
             y = Random.Range(100, 1000);
@@ -40,7 +40,7 @@ public class Add : iQuestion
             z = x + y;
         }
 
-        return  " "+x+"\n"
-              +"+   "+y;
+        return  x+"\n"
+              +"+ "+y;
     }
 }

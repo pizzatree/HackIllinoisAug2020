@@ -6,10 +6,7 @@ using TMPro;
 public class Problem : MonoBehaviour
 {
     [SerializeField]
-    private TextMeshProUGUI overheadText = null;
-
-    [SerializeField]
-    private string tempText = " = 1 + 1";
+    private TextMeshProUGUI equationTF = null, variableTF = null;
 
     private iQuestion question;
 
@@ -20,7 +17,11 @@ public class Problem : MonoBehaviour
     {
         problemChar = variable;
         this.question = question;
-        overheadText.text = problemChar + " =" + question.Question(difficulty);
+        variableTF.text = variable + " =";
+        equationTF.text = question.Question(8);
+
+        var eqTextSize = new Vector2(equationTF.text.Length, equationTF.rectTransform.rect.y);
+        equationTF.rectTransform.sizeDelta = eqTextSize;
     }
 
 
