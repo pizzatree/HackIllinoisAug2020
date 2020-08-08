@@ -2,42 +2,42 @@
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
-using UnityEngine.EventSystems;
 
 public class Problem : MonoBehaviour
 {
     [SerializeField]
-    private TextMeshProUGUI overheadText = null;
+    private TextMeshProUGUI equationTF = null, variableTF = null;
 
     [SerializeField]
     private TMP_InputField input;
 
     [SerializeField]
-    private string tempText = " = 1 + 1";
+    private SpriteRenderer targetGraphic;
 
-    [SerializeField]
-    private SpriteRenderer target;
+    private iQuestion question;
 
     private char problemChar;
-    private bool listening;
 
-	public bool Listening { get => listening; set => listening = value; }
-
-	public void AssignVariable(char variable)
+    public void AssignProperties(char variable, iQuestion question, int difficulty)
     {
         problemChar = variable;
-        overheadText.text = problemChar + tempText;
+        this.question = question;
+        variableTF.text = variable + " =";
+        equationTF.text = question.Question(difficulty);
+
+        var eqTextSize = new Vector2(equationTF.text.Length, equationTF.rectTransform.rect.y);
+        equationTF.rectTransform.sizeDelta = eqTextSize;
     }
 
-    private void Update()
+    public void Select()
     {
-        if (Listening)
-        {
-            input.Select();
-            target.gameObject.SetActive(true);
-        }
-        else target.gameObject.SetActive(false);
+        input.Select();
+        targetGraphic.enabled = true;
     }
 
-    public void Deselect() { input.text = ""; listening = false; Debug.Log("deselect"); }
+    public void Deselect()
+    {
+        input.text = "";
+        targetGraphic.enabled = false;
+    }
 }

@@ -31,6 +31,6 @@ public class Add : iQuestion
         z = x + y;
 
         return x + "\n"
-              +"+ "+y;
+              + "+ " + y;
     }
 }
