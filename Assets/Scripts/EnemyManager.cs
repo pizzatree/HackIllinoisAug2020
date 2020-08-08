@@ -17,7 +17,7 @@ public class EnemyManager : MonoBehaviour
     private float spawnXRange = 9; // make dynamic with camera
 
     private bool problemStarted = false;
-    private char activeEnemyLetter = default;
+    private char? activeEnemyLetter = null;
 
     private void Start()
     {
@@ -27,15 +27,16 @@ public class EnemyManager : MonoBehaviour
 
     private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.Return))
+        if((Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.Return) )&& activeEnemyLetter.HasValue)
         {
-            activeEnemies[activeEnemyLetter].Deselect();
+            activeEnemies[activeEnemyLetter.Value].Deselect();
+            activeEnemyLetter = null;
             problemStarted = false;
         }
 
         for(char letter = 'a'; letter <= 'z'; ++letter)
         {
-            if(Input.GetKeyDown(letter.ToString()) && activeEnemies.ContainsKey(letter))
+            if(Input.GetKeyDown(letter.ToString()) && activeEnemies.ContainsKey(letter) && !problemStarted)
             {
                 activeEnemies[letter].Select();
                 problemStarted = true;
