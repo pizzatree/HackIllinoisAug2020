@@ -13,13 +13,13 @@ public class Subtract : iQuestion
     {
         int lower = 0, upper = 10;
 
-        if(difficulty <= 0)
+        if(difficulty <= 2)
             ;
-        else if(difficulty <= 2)
-            upper = 100;
         else if(difficulty <= 4)
+            upper = 100;
+        else if(difficulty <= 6)
             upper = 1000;
-        else if(difficulty >= 5)
+        else if(difficulty >= 8)
         {
             lower = 100;
             upper = 1000;

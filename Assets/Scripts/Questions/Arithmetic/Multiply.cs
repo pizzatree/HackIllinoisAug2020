@@ -1,8 +1,10 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 
-public class Add : iQuestion
+public class Multiply : iQuestion
 {
-    private int x, y, z;
+    int x, y, z;
 
     public bool Answer(string input)
     {
@@ -16,21 +18,27 @@ public class Add : iQuestion
         if(difficulty <= 2)
             ;
         else if(difficulty <= 4)
-            upper = 100;
+        {
+            lower = -12;
+            upper = 12;
+        }
         else if(difficulty <= 6)
-            upper = 1000;
+        {
+            lower = -15;
+            upper = 15;
+        }
         else if(difficulty >= 8)
         {
-            lower = 100;
-            upper = 1000;
+            lower = -25;
+            upper = 25;
         }
 
         x = Random.Range(lower, upper);
         y = Random.Range(lower, upper);
 
-        z = x + y;
+        z = x * y;
 
         return x + "\n"
-              + "+ " + y;
+              + "* " + y;
     }
 }

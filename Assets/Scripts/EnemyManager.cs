@@ -16,7 +16,6 @@ public class EnemyManager : MonoBehaviour
 
     private float spawnXRange = 9; // make dynamic with camera
 
-    private bool problemStarted = false;
     private char? activeEnemyLetter = null;
 
     private void Start()
@@ -27,19 +26,17 @@ public class EnemyManager : MonoBehaviour
 
     private void Update()
     {
-        if((Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.Return) )&& activeEnemyLetter.HasValue)
+        if((Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.Return) ) && activeEnemyLetter.HasValue)
         {
             activeEnemies[activeEnemyLetter.Value].Deselect();
             activeEnemyLetter = null;
-            problemStarted = false;
         }
 
         for(char letter = 'a'; letter <= 'z'; ++letter)
         {
-            if(Input.GetKeyDown(letter.ToString()) && activeEnemies.ContainsKey(letter) && !problemStarted)
+            if(Input.GetKeyDown(letter.ToString()) && activeEnemies.ContainsKey(letter) && !activeEnemyLetter.HasValue)
             {
                 activeEnemies[letter].Select();
-                problemStarted = true;
                 activeEnemyLetter = letter;
             }
         }
@@ -55,7 +52,7 @@ public class EnemyManager : MonoBehaviour
             variable = (char)Random.Range('a', 'z');
 
         var newEnemy = Instantiate(enemy, spawnPoint, Quaternion.identity);
-        newEnemy.GetComponent<Problem>().AssignProperties(variable, new Subtract(), 0); // GENERATE A QUESTION
+        newEnemy.GetComponent<Problem>().AssignProperties(variable, new Divide(), 0); // GENERATE A QUESTION
 
         activeEnemies.Add(variable, newEnemy.GetComponent<Problem>());
 
