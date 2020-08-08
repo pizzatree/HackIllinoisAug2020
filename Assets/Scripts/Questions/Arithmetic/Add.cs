@@ -6,12 +6,7 @@ public class Add : iQuestion
 
     public bool Answer(string input)
     {
-        string[] answer = input.Split('+');
-
-        int inputX = int.Parse(answer[0]);
-        int inputY = int.Parse(answer[1]);
-
-        return inputX + inputY == z;
+        return int.Parse(input) == z;
     }
 
     public string Question(int difficulty)
