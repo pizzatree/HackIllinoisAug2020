@@ -9,28 +9,24 @@ public class BaseManager : MonoBehaviour
     private Base[] bases;
     private List<Base> activeBases = new List<Base>();
 
-    private Vector2 emptyPos;
-
     private void Awake() => Inst = this;
 
     private void Start()
     {
         bases = FindObjectsOfType<Base>();
         activeBases.AddRange(bases);
-
-        emptyPos = transform.Find("EmptyPos").position;
     }
 
-    public Vector2 GetRandomActiveBase()
+    public Base GetRandomActiveBase()
     {
         if(activeBases.Count == 0)
         {
             Debug.LogWarning("All bases destroyed, GAME OVER");
-            return emptyPos;
+            return null;
         }
 
         var @base = activeBases[Random.Range(0, activeBases.Count)];
-        return @base.GetPosition();
+        return @base;
     }
 
     public void BaseDestroyed(Base @base)

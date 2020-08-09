@@ -15,7 +15,7 @@ public class Problem : MonoBehaviour
     private SpriteRenderer targetGraphic = null;
 
     private iQuestion question;
-    private char variable;
+    public char Variable { get; private set; }
 
     private bool listening = false, acceptingLetters = false;
     private StringBuilder inputString = new StringBuilder();
@@ -60,7 +60,7 @@ public class Problem : MonoBehaviour
     public void AssignProperties(char variable, iQuestion question, int difficulty)
     {
         this.question = question;
-        this.variable = variable;
+        this.Variable = variable;
         variableTF.text = variable + " =";
         equationTF.text = question.Question(difficulty);
 
@@ -91,7 +91,8 @@ public class Problem : MonoBehaviour
 
         if(accepted)
         {
-            SendMessageUpwards("ShipDestroyed", variable, SendMessageOptions.RequireReceiver);
+            EnemyManager.Inst.ProblemAccepted(Variable);
+            SendMessageUpwards("ShipDestroyed", SendMessageOptions.RequireReceiver);
             Destroy(this);
         }
     }

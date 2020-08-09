@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class EnemyManager : MonoBehaviour
 {
+    public static EnemyManager Inst;
+
     [SerializeField]
     private GameObject[] enemies = null;
 
@@ -22,6 +24,8 @@ public class EnemyManager : MonoBehaviour
     private GameObject friendlyMissile;
     [SerializeField]
     private Transform friendlySpawnPos;
+
+    private void Awake() => Inst = this;
 
     private void Start()
     {
@@ -85,9 +89,9 @@ public class EnemyManager : MonoBehaviour
         Invoke("SpawnEnemy", spawnTime);
     }
 
-    private void ShipDestroyed(char letter)
+    public void ProblemAccepted(char letter)
     {
-        var missile = 
+        var missile =
             Instantiate(friendlyMissile, friendlySpawnPos.position, Quaternion.identity)
             .GetComponent<FriendlyMissile>();
 
@@ -95,4 +99,8 @@ public class EnemyManager : MonoBehaviour
 
         activeEnemies.Remove(letter);
     }
+
+    public void ProblemLost(char letter)
+        => activeEnemies.Remove(letter);
+
 }
