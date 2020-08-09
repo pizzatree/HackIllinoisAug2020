@@ -13,8 +13,14 @@ public class Enemy : MonoBehaviour
 
     bool moving = true;
 
+    private AudioSource audioSource;
+    [SerializeField]
+    private AudioClip loop;
+
     private void Start()
     {
+        audioSource = GetComponent<AudioSource>();
+
         target = BaseManager.Inst.GetRandomActiveBase();
         targetPos = target.GetPosition();
 
@@ -31,8 +37,15 @@ public class Enemy : MonoBehaviour
         {
             EnemyManager.Inst.ProblemLost(GetComponent<Problem>().Variable);
             target.BlowUp();
+            MasterExploder.Inst.aaaAAAAAAAAA();
             // explosion graphic
             Destroy(gameObject);
+        }
+
+        if(!audioSource.isPlaying)
+        {
+            audioSource.clip = loop;
+            audioSource.Play();
         }
     }
 
@@ -45,6 +58,7 @@ public class Enemy : MonoBehaviour
     public void Explode()
     {
         // explosion graphic
+        MasterExploder.Inst.aaaAAAAAAAAA();
         Destroy(gameObject);
     }
 }

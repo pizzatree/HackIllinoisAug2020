@@ -2,7 +2,17 @@
 
 public class Base : MonoBehaviour
 {
+    [SerializeField]
+    private Sprite healthy, destroyed;
+
+    private SpriteRenderer spriteRenderer;
+
     private bool shielded = false;
+
+    private void Start()
+    {
+        spriteRenderer = GetComponent<SpriteRenderer>();
+    }
 
     public Vector2 GetPosition() => transform.position;
 
@@ -14,13 +24,14 @@ public class Base : MonoBehaviour
             return;
         }
 
-        // sprite change
+        spriteRenderer.sprite = destroyed;
+        // do more stuff
         BaseManager.Inst.BaseDestroyed(this);
     }
 
     public void Restore()
     {
-        // full health sprite
+        spriteRenderer.sprite = healthy;
         // maybe restore particle effect
     }
 }
