@@ -36,6 +36,7 @@ public class Enemy : MonoBehaviour
         if(Vector2.Distance(transform.position, targetPos) < distanceToExplode)
         {
             EnemyManager.Inst.ProblemLost(GetComponent<Problem>().Variable);
+            EnemyManager.Inst.ForceDeselect();
             target.BlowUp();
             MasterExploder.Inst.aaaAAAAAAAAA();
             // explosion graphic

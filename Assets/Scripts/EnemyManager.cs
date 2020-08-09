@@ -59,6 +59,11 @@ public class EnemyManager : MonoBehaviour
         activeEnemyLetter = null;
     }
 
+    public void ForceDeselect()
+    {
+        activeEnemyLetter = null;
+    }
+
     private void Select(char letter)
     {
         activeEnemies[letter].Select();
@@ -93,8 +98,6 @@ public class EnemyManager : MonoBehaviour
     private iQuestion GenerateQuestion()
     {
         difficulty = numSpawns / 10;
-
-        Debug.Log(difficulty);
 
         switch(Random.Range(0, 4))
         {
