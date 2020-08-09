@@ -15,8 +15,10 @@ public class Subtract : iQuestion
     {
         int lower = 0, upper = 10;
 
+#pragma warning disable CS0642
         if(difficulty <= 2)
             ;
+#pragma warning restore CS0642
         else if(difficulty <= 4)
             upper = 100;
         else if(difficulty <= 6)

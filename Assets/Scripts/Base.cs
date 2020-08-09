@@ -1,39 +1,26 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Base : MonoBehaviour
 {
-    [SerializeField]
-    private int maxHealth;
-    private int curHealth;
-
-    private void Start()
-    {
-        curHealth = maxHealth;
-    }
+    private bool shielded = false;
 
     public Vector2 GetPosition() => transform.position;
 
-    public void TakeHit()
+    public void BlowUp()
     {
-        if(--curHealth <= 0)
-            BlowUp();
+        if(shielded)
+        {
+            shielded = false;
+            return;
+        }
 
-        // change sprite based on % health remaining
+        // sprite change
+        BaseManager.Inst.BaseDestroyed(this);
     }
 
     public void Restore()
     {
-        curHealth = maxHealth;
         // full health sprite
         // maybe restore particle effect
-    }
-
-    private void BlowUp()
-    {
-        // sprite change
-        // explosion effect
-        BaseManager.Inst.BaseDestroyed(this);
     }
 }

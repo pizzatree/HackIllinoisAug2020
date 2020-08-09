@@ -25,7 +25,7 @@ public class BaseManager : MonoBehaviour
     {
         if(activeBases.Count == 0)
         {
-            // Signal Game Over
+            Debug.LogWarning("All bases destroyed, GAME OVER");
             return emptyPos;
         }
 
@@ -38,7 +38,7 @@ public class BaseManager : MonoBehaviour
         activeBases.Remove(@base);
 
         if(activeBases.Count == 0)
-            ; // signal game over
+            Debug.LogWarning("All bases destroyed, GAME OVER");
     }
 
     public void BaseRestored(Base @base)

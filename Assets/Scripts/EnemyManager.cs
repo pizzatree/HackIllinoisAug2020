@@ -5,7 +5,7 @@ using UnityEngine;
 public class EnemyManager : MonoBehaviour
 {
     [SerializeField]
-    private GameObject[] enemies;
+    private GameObject[] enemies = null;
 
     private Dictionary<char, Problem> activeEnemies
         = new Dictionary<char, Problem>();
@@ -80,6 +80,6 @@ public class EnemyManager : MonoBehaviour
         Invoke("SpawnEnemy", spawnTime);
     }
 
-    private void FreeFromDictionary(char letter)
+    private void ShipDestroyed(char letter)
         => activeEnemies.Remove(letter);
 }

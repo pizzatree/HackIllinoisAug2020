@@ -12,7 +12,7 @@ public class Problem : MonoBehaviour
                             inputTF    = null;
 
     [SerializeField]
-    private SpriteRenderer targetGraphic;
+    private SpriteRenderer targetGraphic = null;
 
     private iQuestion question;
     private char variable;
@@ -91,7 +91,7 @@ public class Problem : MonoBehaviour
 
         if(accepted)
         {
-            SendMessageUpwards("FreeFromDictionary", variable, SendMessageOptions.RequireReceiver);
+            SendMessageUpwards("ShipDestroyed", variable, SendMessageOptions.RequireReceiver);
             Destroy(gameObject);
         }
     }
