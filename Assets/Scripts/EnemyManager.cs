@@ -21,9 +21,9 @@ public class EnemyManager : MonoBehaviour
     private char? activeEnemyLetter = null;
 
     [SerializeField]
-    private GameObject friendlyMissile;
+    private GameObject friendlyMissile = null;
     [SerializeField]
-    private Transform friendlySpawnPos;
+    private Transform friendlySpawnPos = null;
 
     private void Awake() => Inst = this;
 
