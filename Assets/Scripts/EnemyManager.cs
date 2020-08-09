@@ -18,6 +18,11 @@ public class EnemyManager : MonoBehaviour
 
     private char? activeEnemyLetter = null;
 
+    [SerializeField]
+    private GameObject friendlyMissile;
+    [SerializeField]
+    private Transform friendlySpawnPos;
+
     private void Start()
     {
         spawnTime = startingSpawnTime;
@@ -81,5 +86,13 @@ public class EnemyManager : MonoBehaviour
     }
 
     private void ShipDestroyed(char letter)
-        => activeEnemies.Remove(letter);
+    {
+        var missile = 
+            Instantiate(friendlyMissile, friendlySpawnPos.position, Quaternion.identity)
+            .GetComponent<FriendlyMissile>();
+
+        missile.SetTarget(activeEnemies[letter].GetComponent<Enemy>());
+
+        activeEnemies.Remove(letter);
+    }
 }

@@ -92,7 +92,7 @@ public class Problem : MonoBehaviour
         if(accepted)
         {
             SendMessageUpwards("ShipDestroyed", variable, SendMessageOptions.RequireReceiver);
-            Destroy(gameObject);
+            Destroy(this);
         }
     }
     public void Select()

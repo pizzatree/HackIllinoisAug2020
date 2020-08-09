@@ -10,6 +10,8 @@ public class Enemy : MonoBehaviour
     private int pointValue = 20;
     private Vector3 target;
 
+    bool moving = true;
+
     private void Start()
     {
         target = BaseManager.Inst.GetRandomActiveBase();
@@ -20,11 +22,19 @@ public class Enemy : MonoBehaviour
 
     private void Update()
     {
-        transform.position = Vector2.MoveTowards(transform.position, target, speed * Time.deltaTime);
+        if(moving)
+            transform.position = Vector2.MoveTowards(transform.position, target, speed * Time.deltaTime);
     }
 
     private void ShipDestroyed()
     {
+        moving = false;
         ScoreManager.Inst.AddScore(pointValue);
+    }
+
+    public void Explode()
+    {
+        // explosion graphic
+        Destroy(gameObject);
     }
 }
