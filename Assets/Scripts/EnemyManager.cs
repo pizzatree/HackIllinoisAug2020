@@ -13,8 +13,7 @@ public class EnemyManager : MonoBehaviour
         = new Dictionary<char, Problem>();
 
     [SerializeField]
-    private float startingSpawnTime = 3f;
-    private float spawnTime;
+    private float highSpawnTime = 3f, lowSpawnTime = 1.2f;
 
     private float spawnXRange = 9; // make dynamic with camera
 
@@ -25,17 +24,19 @@ public class EnemyManager : MonoBehaviour
     [SerializeField]
     private Transform friendlySpawnPos = null;
 
+    private int difficulty = 0;
+    private int numSpawns = 1;
+
     private void Awake() => Inst = this;
 
     private void Start()
     {
-        spawnTime = startingSpawnTime;
         Invoke("SpawnEnemy", 0);
     }
 
     private void Update()
     {
-        if((Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.Return)) && activeEnemyLetter.HasValue)
+        if((Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter) && activeEnemyLetter.HasValue))
         {
             Deselect();
         }
@@ -69,24 +70,40 @@ public class EnemyManager : MonoBehaviour
         var spawnPoint = new Vector2((Random.Range(-spawnXRange, spawnXRange)), 7);
         var enemy = enemies[Random.Range(0, enemies.Length)];
 
-        int attempts = 0;
         char variable = (char)Random.Range('a', 'z');
-        while(activeEnemies.ContainsKey(variable))
-        {
-            if(attempts++ > 15)
-            {
-                Invoke("SpawnEnemy", spawnTime);
-                return;
-            }
+        for(int attempt = 0; attempt < 15 && activeEnemies.ContainsKey(variable); ++attempt)
             variable = (char)Random.Range('a', 'z');
+
+        if(activeEnemies.ContainsKey(variable))
+        {
+            Invoke("SpawnEnemy", Random.Range(lowSpawnTime, highSpawnTime));
+            return;
         }
 
+        var newQuestion = GenerateQuestion();
         var newEnemy = Instantiate(enemy, spawnPoint, Quaternion.identity, transform);
-        newEnemy.GetComponent<Problem>().AssignProperties(variable, new Add(), 0); // GENERATE A QUESTION
+        newEnemy.GetComponent<Problem>().AssignProperties(variable, newQuestion, difficulty);
 
         activeEnemies.Add(variable, newEnemy.GetComponent<Problem>());
 
-        Invoke("SpawnEnemy", spawnTime);
+        ++numSpawns;
+        Invoke("SpawnEnemy", Random.Range(lowSpawnTime, highSpawnTime));
+    }
+
+    private iQuestion GenerateQuestion()
+    {
+        difficulty = numSpawns / 10;
+
+        Debug.Log(difficulty);
+
+        switch(Random.Range(0, 4))
+        {
+            case 0: return new Add();
+            case 1: return new Subtract();
+            case 2: return new Multiply();
+            case 3: return new Divide();
+            default: return new Add();
+        }
     }
 
     public void ProblemAccepted(char letter)
@@ -102,5 +119,4 @@ public class EnemyManager : MonoBehaviour
 
     public void ProblemLost(char letter)
         => activeEnemies.Remove(letter);
-
 }

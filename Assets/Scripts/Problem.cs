@@ -52,6 +52,9 @@ public class Problem : MonoBehaviour
                 UpdateInputText();
             }
         }
+
+        if(Input.GetKeyDown(KeyCode.Minus) || Input.GetKeyDown(KeyCode.KeypadMinus))
+            inputString.Append('-');
     }
 
     private void UpdateInputText()
