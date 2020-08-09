@@ -6,7 +6,9 @@ public class Divide : iQuestion
 
     public bool Answer(string input)
     {
-        return int.Parse(input) == x;
+        if(!int.TryParse(input, out int result))
+            return false;
+        return result == x;
     }
 
     public string Question(int difficulty)

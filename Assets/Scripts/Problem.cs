@@ -16,17 +16,36 @@ public class Problem : MonoBehaviour
 
     private iQuestion question;
 
-    private char problemChar;
-
     public void AssignProperties(char variable, iQuestion question, int difficulty)
     {
-        problemChar = variable;
         this.question = question;
         variableTF.text = variable + " =";
         equationTF.text = question.Question(difficulty);
 
         var eqTextSize = new Vector2(equationTF.text.Length, equationTF.rectTransform.rect.y);
         equationTF.rectTransform.sizeDelta = eqTextSize;
+
+        SanitizeInput(question);
+    }
+
+    private void SanitizeInput(iQuestion question)
+    {
+        switch(question)
+        {
+            case Add a:
+            case Subtract b:
+            case Multiply c:
+            case Divide d:
+                input.contentType = TMP_InputField.ContentType.IntegerNumber;
+                break;
+            default:
+                break;
+        }
+    }
+
+    public void Answer()
+    {
+        Debug.Log(question.Answer(input.text.ToString()));
     }
 
     public void Select()
@@ -37,6 +56,7 @@ public class Problem : MonoBehaviour
 
     public void Deselect()
     {
+        Answer();
         input.text = "";
         targetGraphic.enabled = false;
     }

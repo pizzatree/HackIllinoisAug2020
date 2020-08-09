@@ -6,7 +6,9 @@ public class Add : iQuestion
 
     public bool Answer(string input)
     {
-        return int.Parse(input) == z;
+        if(!int.TryParse(input, out int result))
+            return false;
+        return result == z;
     }
 
     public string Question(int difficulty)

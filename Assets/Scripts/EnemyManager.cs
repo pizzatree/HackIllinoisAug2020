@@ -28,18 +28,31 @@ public class EnemyManager : MonoBehaviour
     {
         if((Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.Return) ) && activeEnemyLetter.HasValue)
         {
-            activeEnemies[activeEnemyLetter.Value].Deselect();
-            activeEnemyLetter = null;
+            Deselect();
         }
 
         for(char letter = 'a'; letter <= 'z'; ++letter)
         {
-            if(Input.GetKeyDown(letter.ToString()) && activeEnemies.ContainsKey(letter) && !activeEnemyLetter.HasValue)
+            if(Input.GetKeyDown(letter.ToString()) && activeEnemies.ContainsKey(letter))
             {
-                activeEnemies[letter].Select();
-                activeEnemyLetter = letter;
+                if(activeEnemyLetter.HasValue)
+                    Deselect();
+                
+                Select(letter);
             }
         }
+    }
+
+    private void Deselect()
+    {
+        activeEnemies[activeEnemyLetter.Value].Deselect();
+        activeEnemyLetter = null;
+    }
+
+    private void Select(char letter)
+    {
+        activeEnemies[letter].Select();
+        activeEnemyLetter = letter;
     }
 
     private void SpawnEnemy()
@@ -52,7 +65,7 @@ public class EnemyManager : MonoBehaviour
             variable = (char)Random.Range('a', 'z');
 
         var newEnemy = Instantiate(enemy, spawnPoint, Quaternion.identity);
-        newEnemy.GetComponent<Problem>().AssignProperties(variable, new Divide(), 0); // GENERATE A QUESTION
+        newEnemy.GetComponent<Problem>().AssignProperties(variable, new Add(), 0); // GENERATE A QUESTION
 
         activeEnemies.Add(variable, newEnemy.GetComponent<Problem>());
 
