@@ -35,7 +35,7 @@ public class EnemyManager : MonoBehaviour
         {
             if(Input.GetKeyDown(letter.ToString()) && activeEnemies.ContainsKey(letter))
             {
-                if(activeEnemyLetter.HasValue)
+                if(activeEnemyLetter.HasValue && activeEnemyLetter.Value != letter)
                     Deselect();
                 
                 Select(letter);
@@ -71,4 +71,7 @@ public class EnemyManager : MonoBehaviour
 
         Invoke("SpawnEnemy", spawnTime);
     }
+
+    private void FreeFromDictionary(char letter)
+        => activeEnemies.Remove(letter);
 }

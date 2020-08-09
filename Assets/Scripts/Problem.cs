@@ -2,23 +2,65 @@
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using System.Text;
 
 public class Problem : MonoBehaviour
 {
     [SerializeField]
-    private TextMeshProUGUI equationTF = null, variableTF = null;
-
-    [SerializeField]
-    private TMP_InputField input;
+    private TextMeshProUGUI equationTF = null, 
+                            variableTF = null,
+                            inputTF    = null;
 
     [SerializeField]
     private SpriteRenderer targetGraphic;
 
     private iQuestion question;
+    private char variable;
+
+    private bool listening = false, acceptingLetters = false;
+    private StringBuilder inputString = new StringBuilder();
+
+    private void Update()
+    {
+        if(listening)
+            ReadInput();
+    }
+
+    private void ReadInput()
+    {
+        if(Input.GetKeyDown(KeyCode.Backspace) && inputString.Length > 0)
+        {
+            inputString.Length = inputString.Length - 1;
+            UpdateInputText();
+        }
+
+        if(acceptingLetters)
+            for(char letter = 'a'; letter <= 'z'; ++letter)
+            {
+                if(Input.GetKeyDown(letter.ToString()))
+                {
+                    inputString.Append(letter);
+                    UpdateInputText();
+                }
+            }
+
+        for(char letter = '0'; letter <= '9'; ++letter)
+        {
+            if(Input.GetKeyDown(letter.ToString()))
+            {
+                inputString.Append(letter);
+                UpdateInputText();
+            }
+        }
+    }
+
+    private void UpdateInputText()
+        => inputTF.text = inputString.ToString();
 
     public void AssignProperties(char variable, iQuestion question, int difficulty)
     {
         this.question = question;
+        this.variable = variable;
         variableTF.text = variable + " =";
         equationTF.text = question.Question(difficulty);
 
@@ -36,7 +78,7 @@ public class Problem : MonoBehaviour
             case Subtract b:
             case Multiply c:
             case Divide d:
-                input.contentType = TMP_InputField.ContentType.IntegerNumber;
+                acceptingLetters = false;
                 break;
             default:
                 break;
@@ -45,19 +87,26 @@ public class Problem : MonoBehaviour
 
     public void Answer()
     {
-        Debug.Log(question.Answer(input.text.ToString()));
-    }
+        bool accepted = question.Answer(inputTF.text);
 
+        if(accepted)
+        {
+            SendMessageUpwards("FreeFromDictionary", variable, SendMessageOptions.DontRequireReceiver);
+            Destroy(gameObject);
+        }
+    }
     public void Select()
     {
-        input.Select();
+        listening = true;
         targetGraphic.enabled = true;
     }
 
     public void Deselect()
     {
+        listening = false;
         Answer();
-        input.text = "";
+        inputString.Clear();
+        inputTF.text = "";
         targetGraphic.enabled = false;
     }
 }
