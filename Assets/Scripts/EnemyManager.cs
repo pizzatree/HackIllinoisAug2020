@@ -26,7 +26,7 @@ public class EnemyManager : MonoBehaviour
 
     private void Update()
     {
-        if((Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.Return) ) && activeEnemyLetter.HasValue)
+        if((Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.Return)) && activeEnemyLetter.HasValue)
         {
             Deselect();
         }
@@ -37,7 +37,7 @@ public class EnemyManager : MonoBehaviour
             {
                 if(activeEnemyLetter.HasValue && activeEnemyLetter.Value != letter)
                     Deselect();
-                
+
                 Select(letter);
             }
         }
@@ -60,9 +60,17 @@ public class EnemyManager : MonoBehaviour
         var spawnPoint = new Vector2((Random.Range(-spawnXRange, spawnXRange)), 7);
         var enemy = enemies[Random.Range(0, enemies.Length)];
 
+        int attempts = 0;
         char variable = (char)Random.Range('a', 'z');
         while(activeEnemies.ContainsKey(variable))
+        {
+            if(attempts++ > 15)
+            {
+                Invoke("SpawnEnemy", spawnTime);
+                return;
+            }
             variable = (char)Random.Range('a', 'z');
+        }
 
         var newEnemy = Instantiate(enemy, spawnPoint, Quaternion.identity);
         newEnemy.GetComponent<Problem>().AssignProperties(variable, new Add(), 0); // GENERATE A QUESTION
