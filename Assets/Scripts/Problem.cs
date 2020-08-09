@@ -91,7 +91,7 @@ public class Problem : MonoBehaviour
 
         if(accepted)
         {
-            SendMessageUpwards("FreeFromDictionary", variable, SendMessageOptions.DontRequireReceiver);
+            SendMessageUpwards("FreeFromDictionary", variable, SendMessageOptions.RequireReceiver);
             Destroy(gameObject);
         }
     }

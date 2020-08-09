@@ -72,7 +72,7 @@ public class EnemyManager : MonoBehaviour
             variable = (char)Random.Range('a', 'z');
         }
 
-        var newEnemy = Instantiate(enemy, spawnPoint, Quaternion.identity);
+        var newEnemy = Instantiate(enemy, spawnPoint, Quaternion.identity, transform);
         newEnemy.GetComponent<Problem>().AssignProperties(variable, new Add(), 0); // GENERATE A QUESTION
 
         activeEnemies.Add(variable, newEnemy.GetComponent<Problem>());
