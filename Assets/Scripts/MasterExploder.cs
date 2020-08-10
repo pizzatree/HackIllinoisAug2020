@@ -8,16 +8,27 @@ public class MasterExploder : MonoBehaviour
     public static MasterExploder Inst;
 
     private AudioSource audioSource;
+
+    AudioSource musicSource;
     [SerializeField]
     private AudioClip explosion;
+    [SerializeField]
+    private AudioClip music;
 
     private void Awake()
     {
         Inst = this;
         audioSource = gameObject.AddComponent<AudioSource>();
+        musicSource = gameObject.AddComponent<AudioSource>();
+        musicSource.clip = music;
     }
 
-    public void aaaAAAAAAAAA()
+	private void Update()
+	{
+        if (!musicSource.isPlaying) musicSource.Play();
+	}
+
+	public void aaaAAAAAAAAA()
     {
         audioSource.PlayOneShot(explosion, 1);
     }

@@ -36,7 +36,8 @@ public class EnemyManager : MonoBehaviour
 
     private void Update()
     {
-        if((Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter) && activeEnemyLetter.HasValue))
+        if(activeEnemyLetter.HasValue)if (!activeEnemies[activeEnemyLetter.Value]) activeEnemyLetter = null;
+        if ((Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter)) && activeEnemyLetter.HasValue)
         {
             Deselect();
         }

@@ -161,7 +161,8 @@ MonoBehaviour:
   - {fileID: 5189607767417217558, guid: d70fd7ab24a10844fa6af886ea49cdd1, type: 3}
   - {fileID: 1497206554341019031, guid: 4266bef2e72822445a7a989fb7d01ce9, type: 3}
   - {fileID: 4157203984045523269, guid: 509e4b9cff9cd9e4d9ea048febc1b770, type: 3}
-  startingSpawnTime: 3
+  highSpawnTime: 3
+  lowSpawnTime: 1.2
   friendlyMissile: {fileID: 9209113729582266983, guid: d999c06a25dfd504c9566eb670a82a10, type: 3}
   friendlySpawnPos: {fileID: 2025629039}
 --- !u!4 &279926480
@@ -503,7 +504,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d05b4f1be9b3b240b5d03ef412b725d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  explosion: {fileID: 8300000, guid: 99a3cfd347aed0b479efce09d66b0d1d, type: 3}
+  explosion: {fileID: 8300000, guid: 5833cef50cbdfb242bda96a751c6c557, type: 3}
+  music: {fileID: 8300000, guid: 720e64d4c3110134d9ccf1ab8209d313, type: 3}
 --- !u!4 &1027583813
 Transform:
   m_ObjectHideFlags: 0
