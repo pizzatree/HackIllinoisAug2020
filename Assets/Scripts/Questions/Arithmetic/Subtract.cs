@@ -32,6 +32,13 @@ public class Subtract : iQuestion
         x = Random.Range(lower, upper);
         y = Random.Range(lower, upper);
 
+        if(y > x) // no negatives... right now
+        {
+            z = x;
+            y = x;
+            x = y;
+        }
+
         z = x - y;
 
         return x + "\n"

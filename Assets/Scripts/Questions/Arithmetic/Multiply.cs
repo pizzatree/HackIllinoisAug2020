@@ -22,20 +22,17 @@ public class Multiply : iQuestion
             ;
 #pragma warning restore CS0642
         else if(difficulty <= 4)
-        {
-            lower = -12;
             upper = 12;
-        }
-        else if(difficulty <= 6)
-        {
-            lower = -15;
+        else if(difficulty <= 10)
             upper = 15;
-        }
-        else if(difficulty >= 8)
+        else if(difficulty <= 15)
+            upper = 25;
+        else if(difficulty >= 25)
         {
             lower = -25;
             upper = 25;
         }
+
 
         x = Random.Range(lower, upper);
         y = Random.Range(lower, upper);

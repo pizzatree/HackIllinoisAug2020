@@ -15,14 +15,14 @@ public class Enemy : MonoBehaviour
 
     private AudioSource audioSource;
     [SerializeField]
-    private AudioClip loop;
+    private AudioClip loop = null;
 
     private void Start()
     {
         audioSource = GetComponent<AudioSource>();
 
         target = BaseManager.Inst.GetRandomActiveBase();
-        targetPos = target.GetPosition();
+        targetPos = (Vector2)target?.GetPosition();
 
         var rot = Quaternion.Euler(0, 0, -180) * (targetPos - transform.position);
         transform.Find("Graphic").rotation = Quaternion.LookRotation(Vector3.forward, rot);
@@ -35,8 +35,9 @@ public class Enemy : MonoBehaviour
     
         if(Vector2.Distance(transform.position, targetPos) < distanceToExplode)
         {
-            EnemyManager.Inst.ProblemLost(GetComponent<Problem>().Variable);
-            EnemyManager.Inst.ForceDeselect();
+            var variable = GetComponent<Problem>().Variable;
+            EnemyManager.Inst.ProblemLost(variable);
+            EnemyManager.Inst.ForceDeselect(variable);
             target.BlowUp();
             MasterExploder.Inst.aaaAAAAAAAAA();
             // explosion graphic

@@ -31,7 +31,8 @@ public class BaseManager : MonoBehaviour
 
     public void BaseDestroyed(Base @base)
     {
-        activeBases.Remove(@base);
+        if(activeBases.Contains(@base))
+            activeBases.Remove(@base);
 
         if(activeBases.Count == 0)
             Debug.LogWarning("All bases destroyed, GAME OVER");
@@ -39,6 +40,7 @@ public class BaseManager : MonoBehaviour
 
     public void BaseRestored(Base @base)
     {
-        activeBases.Add(@base);
+        if(!activeBases.Contains(@base))
+            activeBases.Add(@base);
     }
 }

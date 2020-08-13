@@ -13,7 +13,7 @@ public class Divide : iQuestion
 
     public string Question(int difficulty)
     {
-        int lower = 0, upper = 10;
+        int lower = 0, upper = 5;
 
 #pragma warning disable CS0642
         if(difficulty <= 2)
@@ -21,20 +21,13 @@ public class Divide : iQuestion
 #pragma warning restore CS0642
 
         else if(difficulty <= 4)
-        {
-            lower = -12;
+            upper = 10;
+        else if(difficulty <= 10)
             upper = 12;
-        }
-        else if(difficulty <= 6)
-        {
-            lower = -15;
+        else if(difficulty >= 15)
             upper = 15;
-        }
-        else if(difficulty >= 8)
-        {
-            lower = -25;
+        else if(difficulty >= 25)
             upper = 25;
-        }
 
         while(x == 0)
             x = Random.Range(lower, upper);

@@ -7,7 +7,7 @@ using System.Text;
 public class Problem : MonoBehaviour
 {
     [SerializeField]
-    private TextMeshProUGUI equationTF = null, 
+    private TextMeshProUGUI equationTF = null,
                             variableTF = null,
                             inputTF    = null;
 
@@ -54,11 +54,14 @@ public class Problem : MonoBehaviour
         }
 
         if(Input.GetKeyDown(KeyCode.Minus) || Input.GetKeyDown(KeyCode.KeypadMinus))
+        {
             inputString.Append('-');
+            UpdateInputText();
+        }
     }
 
     private void UpdateInputText()
-        => inputTF.text = inputString.ToString();
+    => inputTF.text = inputString.ToString();
 
     public void AssignProperties(char variable, iQuestion question, int difficulty)
     {

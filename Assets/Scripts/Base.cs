@@ -3,7 +3,7 @@
 public class Base : MonoBehaviour
 {
     [SerializeField]
-    private Sprite healthy, destroyed;
+    private Sprite healthy = null, destroyed = null;
 
     private SpriteRenderer spriteRenderer;
 

@@ -228,7 +228,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bedacde9c76477b499aab677c3ff5ade, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 1
+  speed: 0.85
   distanceToExplode: 0.5
   pointValue: 20
   loop: {fileID: 8300000, guid: 3047f17b86d55e04fbd27091abb75006, type: 3}

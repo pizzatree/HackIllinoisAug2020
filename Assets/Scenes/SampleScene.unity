@@ -161,8 +161,8 @@ MonoBehaviour:
   - {fileID: 5189607767417217558, guid: d70fd7ab24a10844fa6af886ea49cdd1, type: 3}
   - {fileID: 1497206554341019031, guid: 4266bef2e72822445a7a989fb7d01ce9, type: 3}
   - {fileID: 4157203984045523269, guid: 509e4b9cff9cd9e4d9ea048febc1b770, type: 3}
-  highSpawnTime: 3
-  lowSpawnTime: 1.2
+  highSpawnTime: 3.25
+  lowSpawnTime: 2.5
   friendlyMissile: {fileID: 9209113729582266983, guid: d999c06a25dfd504c9566eb670a82a10, type: 3}
   friendlySpawnPos: {fileID: 2025629039}
 --- !u!4 &279926480

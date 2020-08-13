@@ -9,37 +9,29 @@ public class EnemyManager : MonoBehaviour
     [SerializeField]
     private GameObject[] enemies = null;
 
-    private Dictionary<char, Problem> activeEnemies
-        = new Dictionary<char, Problem>();
-
     [SerializeField]
-    private float highSpawnTime = 3f, lowSpawnTime = 1.2f;
-
-    private float spawnXRange = 9; // make dynamic with camera
-
-    private char? activeEnemyLetter = null;
+    private float highSpawnTime = 4f, lowSpawnTime = 2.5f;
 
     [SerializeField]
     private GameObject friendlyMissile = null;
     [SerializeField]
     private Transform friendlySpawnPos = null;
 
-    private int difficulty = 0;
-    private int numSpawns = 1;
+    private Dictionary<char, Problem> activeEnemies = new Dictionary<char, Problem>();
+
+    private int difficulty = 0, numSpawns = 1;
+    private float spawnXRange = 6; // make dynamic with camera
+    private char? activeEnemyLetter = null;
 
     private void Awake() => Inst = this;
-
-    private void Start()
-    {
-        Invoke("SpawnEnemy", 0);
-    }
+    private void Start() => Invoke("SpawnEnemy", 0);
 
     private void Update()
     {
-        if(activeEnemyLetter.HasValue)if (!activeEnemies[activeEnemyLetter.Value]) activeEnemyLetter = null;
-        if ((Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter)) && activeEnemyLetter.HasValue)
+        if((Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter)) && activeEnemyLetter.HasValue)
         {
             Deselect();
+            activeEnemyLetter = null;
         }
 
         for(char letter = 'a'; letter <= 'z'; ++letter)
@@ -60,9 +52,10 @@ public class EnemyManager : MonoBehaviour
         activeEnemyLetter = null;
     }
 
-    public void ForceDeselect()
+    public void ForceDeselect(char variable)
     {
-        activeEnemyLetter = null;
+        if(activeEnemyLetter == variable)
+            activeEnemyLetter = null;
     }
 
     private void Select(char letter)
@@ -73,13 +66,14 @@ public class EnemyManager : MonoBehaviour
 
     private void SpawnEnemy()
     {
-        var spawnPoint = new Vector2((Random.Range(-spawnXRange, spawnXRange)), 7);
+        var spawnPoint = new Vector2((Random.Range(-spawnXRange, spawnXRange)), 7f);
         var enemy = enemies[Random.Range(0, enemies.Length)];
 
         char variable = (char)Random.Range('a', 'z');
         for(int attempt = 0; attempt < 15 && activeEnemies.ContainsKey(variable); ++attempt)
             variable = (char)Random.Range('a', 'z');
 
+        // If we run out of attempts to find a nonused, randomized variable -> STOP, try again later
         if(activeEnemies.ContainsKey(variable))
         {
             Invoke("SpawnEnemy", Random.Range(lowSpawnTime, highSpawnTime));
@@ -91,14 +85,14 @@ public class EnemyManager : MonoBehaviour
         newEnemy.GetComponent<Problem>().AssignProperties(variable, newQuestion, difficulty);
 
         activeEnemies.Add(variable, newEnemy.GetComponent<Problem>());
-
         ++numSpawns;
+
         Invoke("SpawnEnemy", Random.Range(lowSpawnTime, highSpawnTime));
     }
 
     private iQuestion GenerateQuestion()
     {
-        difficulty = numSpawns / 10;
+        difficulty = numSpawns / 5;
 
         switch(Random.Range(0, 4))
         {

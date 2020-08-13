@@ -7,29 +7,22 @@ public class MasterExploder : MonoBehaviour
 {
     public static MasterExploder Inst;
 
-    private AudioSource audioSource;
+    private AudioSource sfxSource, bgmSource;
 
-    AudioSource musicSource;
     [SerializeField]
-    private AudioClip explosion;
-    [SerializeField]
-    private AudioClip music;
+    private AudioClip explosion = null, music = null;
 
     private void Awake()
     {
         Inst = this;
-        audioSource = gameObject.AddComponent<AudioSource>();
-        musicSource = gameObject.AddComponent<AudioSource>();
-        musicSource.clip = music;
-    }
+        sfxSource = gameObject.AddComponent<AudioSource>();
 
-	private void Update()
-	{
-        if (!musicSource.isPlaying) musicSource.Play();
-	}
+        bgmSource = gameObject.AddComponent<AudioSource>();
+        bgmSource.loop = true;
+        bgmSource.clip = music;
+        bgmSource.Play();
+    }
 
 	public void aaaAAAAAAAAA()
-    {
-        audioSource.PlayOneShot(explosion, 1);
-    }
+        => sfxSource.PlayOneShot(explosion, 1);
 }
