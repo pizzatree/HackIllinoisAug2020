@@ -46,7 +46,10 @@ public class Problem : MonoBehaviour
 
         for(char letter = '0'; letter <= '9'; ++letter)
         {
-            if(Input.GetKeyDown(letter.ToString()))
+            var numString = letter.ToString();
+            var keyNumString = "[" + numString + "]";
+
+            if(Input.GetKeyDown(numString) || Input.GetKeyDown(keyNumString))
             {
                 inputString.Append(letter);
                 UpdateInputText();
