@@ -69,9 +69,9 @@ public class EnemyManager : MonoBehaviour
         var spawnPoint = new Vector2((Random.Range(-spawnXRange, spawnXRange)), 7f);
         var enemy = enemies[Random.Range(0, enemies.Length)];
 
-        char variable = (char)Random.Range('a', 'z');
+        char variable = (char)Random.Range('a', 'z' + 1);
         for(int attempt = 0; attempt < 15 && activeEnemies.ContainsKey(variable); ++attempt)
-            variable = (char)Random.Range('a', 'z');
+            variable = (char)Random.Range('a', 'z' + 1);
 
         // If we run out of attempts to find a nonused, randomized variable -> STOP, try again later
         if(activeEnemies.ContainsKey(variable))

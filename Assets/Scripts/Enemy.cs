@@ -9,7 +9,7 @@ public class Enemy : MonoBehaviour
     [SerializeField]
     private int pointValue = 20;
     private Base target;
-    private Vector3 targetPos;
+    private Vector3 targetPos = new Vector3(0, -3, 0);
 
     bool moving = true;
 
@@ -22,7 +22,8 @@ public class Enemy : MonoBehaviour
         audioSource = GetComponent<AudioSource>();
 
         target = BaseManager.Inst.GetRandomActiveBase();
-        targetPos = (Vector2)target?.GetPosition();
+        if(target)
+            targetPos = target.GetPosition();
 
         var rot = Quaternion.Euler(0, 0, -180) * (targetPos - transform.position);
         transform.Find("Graphic").rotation = Quaternion.LookRotation(Vector3.forward, rot);
@@ -38,7 +39,7 @@ public class Enemy : MonoBehaviour
             var variable = GetComponent<Problem>().Variable;
             EnemyManager.Inst.ProblemLost(variable);
             EnemyManager.Inst.ForceDeselect(variable);
-            target.BlowUp();
+            target?.BlowUp();
             MasterExploder.Inst.aaaAAAAAAAAA();
             // explosion graphic
             Destroy(gameObject);
