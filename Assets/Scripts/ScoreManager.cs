@@ -25,6 +25,9 @@ public class ScoreManager : MonoBehaviour
         }
     }
 
+    public void ResetScore()
+        => currentScore = 0;
+
     public void AddScore(int amount)
     {
         currentScore += (ulong)amount;
