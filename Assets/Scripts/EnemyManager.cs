@@ -19,7 +19,7 @@ public class EnemyManager : MonoBehaviour
 
     private Dictionary<char, Problem> activeEnemies = new Dictionary<char, Problem>();
 
-    private int difficulty = 0, numSpawns = 1;
+    private int difficulty = 0, numSpawns = 0;
     private float spawnXRange = 6; // make dynamic with camera
     private char? activeEnemyLetter = null;
 
@@ -85,14 +85,13 @@ public class EnemyManager : MonoBehaviour
         newEnemy.GetComponent<Problem>().AssignProperties(variable, newQuestion, difficulty);
 
         activeEnemies.Add(variable, newEnemy.GetComponent<Problem>());
-        ++numSpawns;
 
         Invoke("SpawnEnemy", Random.Range(lowSpawnTime, highSpawnTime));
     }
 
     private iQuestion GenerateQuestion()
     {
-        difficulty = numSpawns / 5;
+        difficulty = numSpawns++ / 3;
 
         switch(Random.Range(0, 4))
         {

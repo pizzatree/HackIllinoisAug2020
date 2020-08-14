@@ -13,21 +13,8 @@ public class Add : iQuestion
 
     public string Question(int difficulty)
     {
-        int lower = 0, upper = 10;
-
-#pragma warning disable CS0642
-        if(difficulty <= 2)
-            ;
-#pragma warning restore CS0642
-        else if(difficulty <= 4)
-            upper = 100;
-        else if(difficulty <= 6)
-            upper = 1000;
-        else if(difficulty >= 8)
-        {
-            lower = 100;
-            upper = 1000;
-        }
+        int lower = difficulty / 10;
+        int upper = (difficulty + 1) * 5;
 
         x = Random.Range(lower, upper);
         y = Random.Range(lower, upper);
