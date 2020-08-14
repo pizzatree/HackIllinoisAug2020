@@ -5,16 +5,16 @@ public class Base : MonoBehaviour
     [SerializeField]
     private Sprite healthy = null, destroyed = null;
 
-    [SerializeField]
-    SpriteRenderer shieldSprite = null;
-
     private SpriteRenderer spriteRenderer;
+    [SerializeField]
+    private SpriteRenderer shieldSprite = null;
 
     private bool shielded = false;
 
     private void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
+        shieldSprite.enabled = false;
     }
 
     public Vector2 GetPosition() => transform.position;

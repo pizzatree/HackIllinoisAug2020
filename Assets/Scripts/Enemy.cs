@@ -19,17 +19,28 @@ public class Enemy : MonoBehaviour
     [SerializeField]
     private AudioClip loop = null;
 
+    [SerializeField]
+    private bool shieldEnemy = false;
+
     private void Start()
     {
         audioSource = GetComponent<AudioSource>();
         audioSource.pitch = Random.Range(0.95f, 1.05f);
 
-        target = BaseManager.Inst.GetRandomActiveBase();
-        if(target)
-            targetPos = target.GetPosition();
+        if(shieldEnemy)
+        {
+            targetPos = new Vector3(-transform.position.x, transform.position.y);
+            target = null;
+        }
+        else
+        {
+            target = BaseManager.Inst.GetRandomActiveBase();
+            if(target)
+                targetPos = target.GetPosition();
 
-        var rot = Quaternion.Euler(0, 0, -180) * (targetPos - transform.position);
-        transform.Find("Graphic").rotation = Quaternion.LookRotation(Vector3.forward, rot);
+            var rot = Quaternion.Euler(0, 0, -180) * (targetPos - transform.position);
+            transform.Find("Graphic").rotation = Quaternion.LookRotation(Vector3.forward, rot);
+        }
     }
 
     private void Update()
@@ -55,6 +66,9 @@ public class Enemy : MonoBehaviour
 
     private void ShipDestroyed()
     {
+        if(shieldEnemy)
+            BaseManager.Inst.ShieldBases();
+
         moving = false;
         ScoreManager.Inst.AddScore(pointValue);
     }

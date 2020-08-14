@@ -7,7 +7,8 @@ public class EnemyManager : MonoBehaviour
     public static EnemyManager Inst;
 
     [SerializeField]
-    private GameObject[] enemies = null;
+    private GameObject[] enemies = null,
+                         specialEnemies = null;
 
     [SerializeField]
     private float highSpawnTime = 4f, lowSpawnTime = 2.5f;
@@ -81,6 +82,12 @@ public class EnemyManager : MonoBehaviour
     {
         var spawnPoint = new Vector2((Random.Range(-spawnXRange, spawnXRange)), 7f);
         var enemy = enemies[Random.Range(0, enemies.Length)];
+
+        if(numSpawns % 25 == 24) // spawn a special enemy
+        {
+            spawnPoint = new Vector2(10, Random.Range(3f, 6f));
+            enemy = specialEnemies[Random.Range(0, specialEnemies.Length)];
+        }
 
         char variable = (char)Random.Range('a', 'z' + 1);
         for(int attempt = 0; attempt < 15 && activeEnemies.ContainsKey(variable); ++attempt)
