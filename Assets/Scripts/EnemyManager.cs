@@ -85,7 +85,7 @@ public class EnemyManager : MonoBehaviour
 
         if(numSpawns % 25 == 24) // spawn a special enemy
         {
-            spawnPoint = new Vector2(10, Random.Range(3f, 6f));
+            spawnPoint = new Vector2(10, Random.Range(-1f, 3f));
             enemy = specialEnemies[Random.Range(0, specialEnemies.Length)];
         }
 
