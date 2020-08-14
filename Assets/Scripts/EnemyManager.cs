@@ -83,7 +83,9 @@ public class EnemyManager : MonoBehaviour
         var spawnPoint = new Vector2((Random.Range(-spawnXRange, spawnXRange)), 7f);
         var enemy = enemies[Random.Range(0, enemies.Length)];
 
-        if(numSpawns % 25 == 24) // spawn a special enemy
+        bool spawnSpecial = numSpawns % 25 == 24;
+
+        if(spawnSpecial) // spawn a special enemy
         {
             spawnPoint = new Vector2(10, Random.Range(-1f, 3f));
             enemy = specialEnemies[Random.Range(0, specialEnemies.Length)];
@@ -101,8 +103,9 @@ public class EnemyManager : MonoBehaviour
         }
 
         var newQuestion = GenerateQuestion();
+        var newDifficulty = (spawnSpecial) ? difficulty + 5 : difficulty;
         var newEnemy = Instantiate(enemy, spawnPoint, Quaternion.identity, transform);
-        newEnemy.GetComponent<Problem>().AssignProperties(variable, newQuestion, difficulty);
+        newEnemy.GetComponent<Problem>().AssignProperties(variable, newQuestion, newDifficulty);
 
         activeEnemies.Add(variable, newEnemy.GetComponent<Problem>());
 
