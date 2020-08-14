@@ -10,6 +10,8 @@ public class Enemy : MonoBehaviour
     private int pointValue = 20;
     private Base target;
     private Vector3 targetPos = new Vector3(0, -3, 0);
+    [SerializeField]
+    private GameObject explosion;
 
     bool moving = true;
 
@@ -41,9 +43,7 @@ public class Enemy : MonoBehaviour
             EnemyManager.Inst.RemoveProblem(variable);
             EnemyManager.Inst.ForceDeselect(variable);
             target?.BlowUp();
-            MasterExploder.Inst.aaaAAAAAAAAA();
-            // explosion graphic
-            Destroy(gameObject);
+            Explode();
         }
 
         if(!audioSource.isPlaying)
@@ -61,7 +61,7 @@ public class Enemy : MonoBehaviour
 
     public void Explode()
     {
-        // explosion graphic
+        Instantiate(explosion, transform.position, Quaternion.identity);
         MasterExploder.Inst.aaaAAAAAAAAA();
         Destroy(gameObject);
     }

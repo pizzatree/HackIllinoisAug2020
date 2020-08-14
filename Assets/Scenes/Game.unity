@@ -811,7 +811,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1380469229}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: -10}
+  m_LocalPosition: {x: 0, y: 1, z: -100}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -1045,10 +1045,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 5206248381041181814, guid: 3ed40f792be6d994d8f7b99a5467d1f4, type: 3}
-      propertyPath: m_text
-      value: Score:`
-      objectReference: {fileID: 0}
     - target: {fileID: 5206248382015958859, guid: 3ed40f792be6d994d8f7b99a5467d1f4, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -1136,22 +1132,6 @@ PrefabInstance:
     - target: {fileID: 5206248382015958863, guid: 3ed40f792be6d994d8f7b99a5467d1f4, type: 3}
       propertyPath: m_Name
       value: UI Canvas
-      objectReference: {fileID: 0}
-    - target: {fileID: 5206248382430665204, guid: 3ed40f792be6d994d8f7b99a5467d1f4, type: 3}
-      propertyPath: m_fontAsset
-      value: 
-      objectReference: {fileID: 11400000, guid: 083d8c37eba37d04f96396e6048c3423, type: 2}
-    - target: {fileID: 5206248382430665204, guid: 3ed40f792be6d994d8f7b99a5467d1f4, type: 3}
-      propertyPath: m_sharedMaterial
-      value: 
-      objectReference: {fileID: 3438519061275999309, guid: 083d8c37eba37d04f96396e6048c3423, type: 2}
-    - target: {fileID: 5206248382430665204, guid: 3ed40f792be6d994d8f7b99a5467d1f4, type: 3}
-      propertyPath: m_fontStyle
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5206248382430665204, guid: 3ed40f792be6d994d8f7b99a5467d1f4, type: 3}
-      propertyPath: m_text
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3ed40f792be6d994d8f7b99a5467d1f4, type: 3}
