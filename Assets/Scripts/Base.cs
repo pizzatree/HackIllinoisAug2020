@@ -5,6 +5,9 @@ public class Base : MonoBehaviour
     [SerializeField]
     private Sprite healthy = null, destroyed = null;
 
+    [SerializeField]
+    SpriteRenderer shieldSprite = null;
+
     private SpriteRenderer spriteRenderer;
 
     private bool shielded = false;
@@ -21,6 +24,7 @@ public class Base : MonoBehaviour
         if(shielded)
         {
             shielded = false;
+            shieldSprite.enabled = false;
             return;
         }
 
@@ -38,5 +42,6 @@ public class Base : MonoBehaviour
     {
         // add shield graphic
         shielded = true;
+        shieldSprite.enabled = true;
     }
 }
