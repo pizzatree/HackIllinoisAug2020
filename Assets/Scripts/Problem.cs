@@ -73,9 +73,6 @@ public class Problem : MonoBehaviour
         variableTF.text = char.ToUpper(variable) + " =";
         equationTF.text = question.Question(difficulty);
 
-        var eqTextSize = new Vector2(equationTF.text.Length, equationTF.rectTransform.rect.y);
-        equationTF.rectTransform.sizeDelta = eqTextSize;
-
         SanitizeInput(question);
     }
 
@@ -118,5 +115,11 @@ public class Problem : MonoBehaviour
         inputString.Clear();
         inputTF.text = "";
         targetGraphic.enabled = false;
+    }
+
+    private void OnMouseDown()
+    {
+        EnemyManager.Inst.ForceSelect(Variable);
+        Select();
     }
 }

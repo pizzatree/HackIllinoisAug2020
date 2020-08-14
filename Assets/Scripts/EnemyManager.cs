@@ -28,7 +28,8 @@ public class EnemyManager : MonoBehaviour
 
     private void Update()
     {
-        if((Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter)) && activeEnemyLetter.HasValue)
+        bool acceptButton = Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter);
+        if(acceptButton && activeEnemyLetter.HasValue)
         {
             Deselect();
             activeEnemyLetter = null;
@@ -62,6 +63,15 @@ public class EnemyManager : MonoBehaviour
     {
         activeEnemies[letter].Select();
         activeEnemyLetter = letter;
+    }
+
+    public void ForceSelect(char variable)
+    {
+        if(activeEnemyLetter.HasValue && activeEnemyLetter.Value != variable)
+            Deselect();
+
+        activeEnemies[variable].Select();
+        activeEnemyLetter = variable;
     }
 
     private void SpawnEnemy()
