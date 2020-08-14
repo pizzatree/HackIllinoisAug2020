@@ -1,0 +1,3 @@
+https://www.dafont.com/fragment-core.font?l[]=10&l[]=1
+
+Fragment Core TTF was modified to have monospaced numbers. 

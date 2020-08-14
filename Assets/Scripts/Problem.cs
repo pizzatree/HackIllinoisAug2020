@@ -70,7 +70,7 @@ public class Problem : MonoBehaviour
     {
         this.question = question;
         this.Variable = variable;
-        variableTF.text = variable + " =";
+        variableTF.text = char.ToUpper(variable) + " =";
         equationTF.text = question.Question(difficulty);
 
         var eqTextSize = new Vector2(equationTF.text.Length, equationTF.rectTransform.rect.y);
