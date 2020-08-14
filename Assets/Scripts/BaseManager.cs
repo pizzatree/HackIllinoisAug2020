@@ -19,11 +19,8 @@ public class BaseManager : MonoBehaviour
 
     public Base GetRandomActiveBase()
     {
-        if(activeBases.Count == 0)
-        {
-            Debug.LogWarning("All bases destroyed, GAME OVER");
+        if(CheckLose())
             return null;
-        }
 
         var @base = activeBases[Random.Range(0, activeBases.Count)];
         return @base;
@@ -34,8 +31,19 @@ public class BaseManager : MonoBehaviour
         if(activeBases.Contains(@base))
             activeBases.Remove(@base);
 
+        CheckLose();
+    }
+
+    public bool CheckLose()
+    {
         if(activeBases.Count == 0)
-            Debug.LogWarning("All bases destroyed, GAME OVER");
+        {
+            ScoreManager.Inst.PostScore();
+            UnityEngine.SceneManagement.SceneManager.LoadScene(0);
+            return true;
+        }
+
+        return false;
     }
 
     public void BaseRestored(Base @base)

@@ -14,7 +14,20 @@ public class MasterExploder : MonoBehaviour
 
     private void Awake()
     {
-        Inst = this;
+        if(Inst != null && Inst != this)
+        {
+            Destroy(this);
+            return;
+        }
+        else
+        {
+            Inst = this;
+            DontDestroyOnLoad(this);
+        }
+    }
+
+    private void Start()
+    {
         sfxSource = gameObject.AddComponent<AudioSource>();
 
         bgmSource = gameObject.AddComponent<AudioSource>();
@@ -24,6 +37,8 @@ public class MasterExploder : MonoBehaviour
         bgmSource.Play();
     }
 
-	public void aaaAAAAAAAAA()
-        => sfxSource.PlayOneShot(explosion, 1);
+    public void aaaAAAAAAAAA()
+    {
+        sfxSource.PlayOneShot(explosion, 1);
+    }
 }
