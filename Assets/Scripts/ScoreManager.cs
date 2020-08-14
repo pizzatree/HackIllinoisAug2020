@@ -36,8 +36,8 @@ public class ScoreManager : MonoBehaviour
             scoreUI = GameObject.FindGameObjectWithTag("ScoreUI").GetComponent<TextMeshProUGUI>();
         scoreUI.text = currentScore.ToString();
 
-        // if score % 1000 == 0 or something
-        // find bases, restore
+        if(currentScore % 1000 == 0)
+            BaseManager.Inst?.RestoreBases();
     }
 
     public void PostScore()

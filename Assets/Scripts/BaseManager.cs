@@ -46,6 +46,26 @@ public class BaseManager : MonoBehaviour
         return false;
     }
 
+    public void RestoreBases()
+    {
+        foreach(var @base in bases)
+        {
+            if(!activeBases.Contains(@base))
+            {
+                @base.Restore();
+                BaseRestored(@base);
+            }
+        }
+    }
+
+    public void ShieldBases()
+    {
+        foreach(var @base in activeBases)
+        {
+            @base.Shield();
+        }
+    }
+
     public void BaseRestored(Base @base)
     {
         if(!activeBases.Contains(@base))

@@ -25,7 +25,6 @@ public class Base : MonoBehaviour
         }
 
         spriteRenderer.sprite = destroyed;
-        // do more stuff
         BaseManager.Inst.BaseDestroyed(this);
     }
 
@@ -33,5 +32,11 @@ public class Base : MonoBehaviour
     {
         spriteRenderer.sprite = healthy;
         // maybe restore particle effect
+    }
+
+    public void Shield()
+    {
+        // add shield graphic
+        shielded = true;
     }
 }
