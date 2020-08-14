@@ -20,6 +20,7 @@ public class Enemy : MonoBehaviour
     private void Start()
     {
         audioSource = GetComponent<AudioSource>();
+        audioSource.pitch = Random.Range(0.95f, 1.05f);
 
         target = BaseManager.Inst.GetRandomActiveBase();
         if(target)

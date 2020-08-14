@@ -233,7 +233,7 @@ MonoBehaviour:
   speed: 0.85
   distanceToExplode: 0.5
   pointValue: 20
-  loop: {fileID: 8300000, guid: 3047f17b86d55e04fbd27091abb75006, type: 3}
+  loop: {fileID: 8300000, guid: 2c5f40a3f4dee18419b6c8202985128a, type: 3}
 --- !u!82 &1734793136274705555
 AudioSource:
   m_ObjectHideFlags: 0
@@ -244,9 +244,9 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: b2cabb37b0c6afc419101abeb9cbd262, type: 3}
+  m_audioClip: {fileID: 8300000, guid: fd5874859ac46044ba38810e68307f71, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.5
+  m_Volume: 0.2
   m_Pitch: 1
   Loop: 0
   Mute: 0

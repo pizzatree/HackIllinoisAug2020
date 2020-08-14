@@ -20,6 +20,7 @@ public class MasterExploder : MonoBehaviour
         bgmSource = gameObject.AddComponent<AudioSource>();
         bgmSource.loop = true;
         bgmSource.clip = music;
+        bgmSource.volume = 0.25f;
         bgmSource.Play();
     }
 
