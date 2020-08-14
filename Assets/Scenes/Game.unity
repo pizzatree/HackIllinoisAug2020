@@ -1137,5 +1137,21 @@ PrefabInstance:
       propertyPath: m_Name
       value: UI Canvas
       objectReference: {fileID: 0}
+    - target: {fileID: 5206248382430665204, guid: 3ed40f792be6d994d8f7b99a5467d1f4, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 083d8c37eba37d04f96396e6048c3423, type: 2}
+    - target: {fileID: 5206248382430665204, guid: 3ed40f792be6d994d8f7b99a5467d1f4, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 3438519061275999309, guid: 083d8c37eba37d04f96396e6048c3423, type: 2}
+    - target: {fileID: 5206248382430665204, guid: 3ed40f792be6d994d8f7b99a5467d1f4, type: 3}
+      propertyPath: m_fontStyle
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5206248382430665204, guid: 3ed40f792be6d994d8f7b99a5467d1f4, type: 3}
+      propertyPath: m_text
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3ed40f792be6d994d8f7b99a5467d1f4, type: 3}

@@ -59,19 +59,22 @@ public class EnemyManager : MonoBehaviour
             activeEnemyLetter = null;
     }
 
-    private void Select(char letter)
+    private void Select(char variable)
     {
-        activeEnemies[letter].Select();
-        activeEnemyLetter = letter;
+        activeEnemies[variable].Select();
+        activeEnemyLetter = variable;
     }
 
     public void ForceSelect(char variable)
     {
-        if(activeEnemyLetter.HasValue && activeEnemyLetter.Value != variable)
+        if(activeEnemyLetter.HasValue)
             Deselect();
 
-        activeEnemies[variable].Select();
-        activeEnemyLetter = variable;
+        if(activeEnemies.ContainsKey(variable))
+        {
+            activeEnemies[variable].Select();
+            activeEnemyLetter = variable;
+        }
     }
 
     private void SpawnEnemy()
@@ -113,17 +116,20 @@ public class EnemyManager : MonoBehaviour
         }
     }
 
-    public void ProblemAccepted(char letter)
+    public void ProblemAccepted(char variable)
     {
         var missile =
             Instantiate(friendlyMissile, friendlySpawnPos.position, Quaternion.identity)
             .GetComponent<FriendlyMissile>();
 
-        missile.SetTarget(activeEnemies[letter].GetComponent<Enemy>());
+        missile.SetTarget(activeEnemies[variable].GetComponent<Enemy>());
 
-        activeEnemies.Remove(letter);
+        RemoveProblem(variable);
     }
 
-    public void ProblemLost(char letter)
-        => activeEnemies.Remove(letter);
+    public void RemoveProblem(char variable)
+    {
+        if(activeEnemies.ContainsKey(variable))
+            activeEnemies.Remove(variable);
+    }
 }

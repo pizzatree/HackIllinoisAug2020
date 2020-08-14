@@ -97,6 +97,7 @@ public class Problem : MonoBehaviour
 
         if(accepted)
         {
+            targetGraphic.enabled = false;
             EnemyManager.Inst.ProblemAccepted(Variable);
             SendMessageUpwards("ShipDestroyed", SendMessageOptions.RequireReceiver);
             Destroy(this);
@@ -106,6 +107,8 @@ public class Problem : MonoBehaviour
     {
         listening = true;
         targetGraphic.enabled = true;
+        inputTF.text = "";
+        inputString.Clear();
     }
 
     public void Deselect()
