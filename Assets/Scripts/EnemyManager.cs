@@ -115,15 +115,17 @@ public class EnemyManager : MonoBehaviour
     private iQuestion GenerateQuestion()
     {
         difficulty = numSpawns++ / 3;
-
-        switch(Random.Range(0, 4))
-        {
-            case 0: return new Add();
-            case 1: return new Subtract();
-            case 2: return new Multiply();
-            case 3: return new Divide();
-            default: return new Add();
-        }
+        Add add = new Add();
+        Subtract subtract = new Subtract();
+        Multiply multiply = new Multiply();
+        Divide divide = new Divide();
+        List<iQuestion> questions = new List<iQuestion>();
+        if (QuestionTypeManager.AdditionToggle.isOn) questions.Add(add);
+        if (QuestionTypeManager.SubtractionToggle.isOn) questions.Add(subtract);
+        if (QuestionTypeManager.MultiplicationToggle.isOn) questions.Add(multiply);
+        if (QuestionTypeManager.DivisionToggle.isOn) questions.Add(divide);
+        if (questions.Count == 0) questions.Add(add);
+        return questions[Random.Range(0, questions.Count - 1)];
     }
 
     public void ProblemAccepted(char variable)
