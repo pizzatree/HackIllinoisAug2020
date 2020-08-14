@@ -99,6 +99,7 @@ public class Problem : MonoBehaviour
         {
             targetGraphic.enabled = false;
             EnemyManager.Inst.ProblemAccepted(Variable);
+            equationTF.text = variableTF.text = "";
             SendMessageUpwards("ShipDestroyed", SendMessageOptions.RequireReceiver);
             Destroy(this);
         }
