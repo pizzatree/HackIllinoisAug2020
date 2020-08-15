@@ -125,7 +125,9 @@ public class EnemyManager : MonoBehaviour
         if (QuestionTypeManager.MultiplicationToggle.isOn) questions.Add(multiply);
         if (QuestionTypeManager.DivisionToggle.isOn) questions.Add(divide);
         if (questions.Count == 0) questions.Add(add);
-        return questions[Random.Range(0, questions.Count - 1)];
+        int rand = Random.Range(0, questions.Count);
+        Debug.Log(rand.ToString());
+        return questions[rand];
     }
 
     public void ProblemAccepted(char variable)

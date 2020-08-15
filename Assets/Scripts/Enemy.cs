@@ -46,7 +46,7 @@ public class Enemy : MonoBehaviour
     private void Update()
     {
         if(moving)
-            transform.position = Vector2.MoveTowards(transform.position, targetPos, speed * Time.deltaTime);
+            transform.position = Vector2.MoveTowards(transform.position, targetPos, speed * Time.deltaTime * float.Parse(QuestionTypeManager.SpeedMultiplierInput.text));
     
         if(Vector2.Distance(transform.position, targetPos) < distanceToExplode)
         {

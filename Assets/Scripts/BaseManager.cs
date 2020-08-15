@@ -39,6 +39,7 @@ public class BaseManager : MonoBehaviour
         if(activeBases.Count == 0)
         {
             ScoreManager.Inst.PostScore();
+            StartGame.GameStarted = false;
             UnityEngine.SceneManagement.SceneManager.LoadScene(0);
             return true;
         }

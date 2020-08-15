@@ -16,6 +16,10 @@ public class Add : iQuestion
         int lower = difficulty / 10;
         int upper = (difficulty + 1) * 5;
 
+        if (lower > int.Parse(QuestionTypeManager.MaxValueInput.text)) lower = int.Parse(QuestionTypeManager.MaxValueInput.text);
+        if (upper > int.Parse(QuestionTypeManager.MaxValueInput.text)) upper = int.Parse(QuestionTypeManager.MaxValueInput.text);
+
+
         x = Random.Range(lower, upper);
         y = Random.Range(lower, upper);
 
