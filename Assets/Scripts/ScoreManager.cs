@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Bases;
 using UnityEngine;
 using TMPro;
 
@@ -18,11 +19,9 @@ public class ScoreManager : MonoBehaviour
             Destroy(this);
             return;
         }
-        else
-        {
-            Inst = this;
-            DontDestroyOnLoad(this);
-        }
+
+        Inst = this;
+        DontDestroyOnLoad(this);
     }
 
     public void ResetScore()
@@ -30,13 +29,13 @@ public class ScoreManager : MonoBehaviour
 
     public void AddScore(int amount)
     {
-        currentScore += (ulong)amount;
+        currentScore += (ulong) amount;
 
         if(scoreUI == null)
             scoreUI = GameObject.FindGameObjectWithTag("ScoreUI").GetComponent<TextMeshProUGUI>();
         scoreUI.text = currentScore.ToString();
 
-        if(currentScore % 1000 == 0)
+        if(currentScore % GameConstants.POINTS_TO_REVIVE == 0)
             BaseManager.Inst?.RestoreBases();
     }
 
@@ -48,6 +47,7 @@ public class ScoreManager : MonoBehaviour
             PlayerPrefs.Save();
         }
     }
+
     public ulong GetHighScore()
     {
         var scoreString = PlayerPrefs.GetString("HighScore");

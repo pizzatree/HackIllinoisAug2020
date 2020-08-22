@@ -8,4 +8,5 @@ Press enter or click the ship
 Compete for the highest score!  
   
 # Plugins used:  
-TextMeshPro
+## Unity Package Manager:
+TextMeshPro 3.0.1

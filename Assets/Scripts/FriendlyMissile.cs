@@ -1,23 +1,22 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using Enemies;
 using UnityEngine;
 
 public class FriendlyMissile : MonoBehaviour
 {
-    [SerializeField]
-    private float explodeDistance = 1f;
+    [SerializeField] private float explodeDistance = 1f;
 
     private Transform graphic;
-
-    private Enemy target;
     private Transform targetTransform;
+    private Enemy     target;
 
     public void SetTarget(Enemy enemy)
     {
-        target = enemy;
+        target          = enemy;
         targetTransform = enemy.GetComponent<Transform>();
-        graphic = transform.Find("Graphic");
+        graphic         = transform.Find("Graphic");
     }
 
     private void Update()
@@ -33,10 +32,11 @@ public class FriendlyMissile : MonoBehaviour
 
     private void HandleTransform()
     {
-        Vector3 nextPos = Vector2.up * 2 * Time.deltaTime
-            + Vector2.MoveTowards(transform.position, targetTransform.position, 3 * Time.deltaTime);
+        var currentPos = transform.position;
+        Vector3 nextPos = Vector2.up * (2 * Time.deltaTime)
+                        + Vector2.MoveTowards(currentPos, targetTransform.position, 3 * Time.deltaTime);
 
-        var rot = nextPos - transform.position;
+        var rot = nextPos - currentPos;
         graphic.rotation = Quaternion.LookRotation(Vector3.forward, rot);
 
         transform.position = nextPos;
@@ -45,10 +45,6 @@ public class FriendlyMissile : MonoBehaviour
     private void Explode()
     {
         target.Explode();
-
-        // Do explosion stuff on here too
-        // Explosions are cool
-
         Destroy(gameObject);
     }
 }

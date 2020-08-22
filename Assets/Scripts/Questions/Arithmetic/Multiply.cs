@@ -1,29 +1,30 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class Multiply : iQuestion
+namespace Questions.Arithmetic
 {
-    int x, y, z;
-
-    public bool Answer(string input)
+    public class Multiply : IQuestion
     {
-        if(!int.TryParse(input, out int result))
-            return false;
-        return result == z;
-    }
+        private int x, y, z;
 
-    public string Question(int difficulty)
-    {
-        int lower = 2 + difficulty / 10;
-        int upper = 5 + (difficulty / 5);
+        public bool Answer(string input)
+        {
+            if(!int.TryParse(input, out int result))
+                return false;
+            return result == z;
+        }
 
-        x = Random.Range(lower, upper);
-        y = Random.Range(lower, upper);
+        public string Question(int difficulty)
+        {
+            var lower = 2 + (difficulty / 10);
+            var upper = 5 + (difficulty / 5);
 
-        z = x * y;
+            x = Random.Range(lower, upper);
+            y = Random.Range(lower, upper);
 
-        return x + "\n"
-              + "* " + y;
+            z = x * y;
+
+            return x               + "\n"
+                            + "* " + y;
+        }
     }
 }

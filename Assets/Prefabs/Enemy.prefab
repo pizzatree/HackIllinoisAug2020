@@ -174,10 +174,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4157203984045523265}
-  - component: {fileID: 1766425847616192772}
-  - component: {fileID: 2477406506522488999}
   - component: {fileID: 1734793136274705555}
   - component: {fileID: 5622976860110685189}
+  - component: {fileID: 1766425847616192772}
+  - component: {fileID: 2930043062820125856}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Untagged
@@ -202,39 +202,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1766425847616192772
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4157203984045523269}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0f0116c03ac54af479ee7dae0d5f4ddf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  equationTF: {fileID: 4049136243807903926}
-  variableTF: {fileID: 7453997121823418940}
-  inputTF: {fileID: 1498691664490657985}
-  targetGraphic: {fileID: 266693874385086640}
---- !u!114 &2477406506522488999
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4157203984045523269}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bedacde9c76477b499aab677c3ff5ade, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 0.85
-  distanceToExplode: 0.5
-  pointValue: 20
-  explosion: {fileID: 9117841812677862847, guid: 8563b9eee4d7c6a4cb585ac623ac0c34, type: 3}
-  loop: {fileID: 8300000, guid: 2c5f40a3f4dee18419b6c8202985128a, type: 3}
 --- !u!82 &1734793136274705555
 AudioSource:
   m_ObjectHideFlags: 0
@@ -357,6 +324,39 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &1766425847616192772
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4157203984045523269}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f0116c03ac54af479ee7dae0d5f4ddf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  equationTF: {fileID: 4049136243807903926}
+  variableTF: {fileID: 7453997121823418940}
+  inputTF: {fileID: 1498691664490657985}
+  targetGraphic: {fileID: 266693874385086640}
+--- !u!114 &2930043062820125856
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4157203984045523269}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bedacde9c76477b499aab677c3ff5ade, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pointValue: 20
+  speed: 1
+  distanceToExplode: 0.5
+  explosion: {fileID: 9117841812677862847, guid: 8563b9eee4d7c6a4cb585ac623ac0c34, type: 3}
+  loop: {fileID: 8300000, guid: 2c5f40a3f4dee18419b6c8202985128a, type: 3}
 --- !u!1 &5066787137407551089
 GameObject:
   m_ObjectHideFlags: 0

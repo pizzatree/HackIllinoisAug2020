@@ -1,27 +1,30 @@
 ﻿using UnityEngine;
 
-public class Divide : iQuestion
+namespace Questions.Arithmetic
 {
-    int x = 0, y = 0, z;
-
-    public bool Answer(string input)
+    public class Divide : IQuestion
     {
-        if(!int.TryParse(input, out int result))
-            return false;
-        return result == x;
-    }
+        private int x = 0, y = 0, z;
 
-    public string Question(int difficulty)
-    {
-        int lower = 1 + difficulty / 10;
-        int upper = 5 + (difficulty / 5);
+        public bool Answer(string input)
+        {
+            if(!int.TryParse(input, out int result))
+                return false;
+            return result == x;
+        }
 
-        x = Random.Range(lower, upper);
-        y = Random.Range(lower, upper);
+        public string Question(int difficulty)
+        {
+            var lower = 1 + difficulty / 10;
+            var upper = 5 + (difficulty / 5);
 
-        z = x * y;
+            x = Random.Range(lower, upper);
+            y = Random.Range(lower, upper);
 
-        return z + "\n"
-              + "/ " + y;
+            z = x * y;
+
+            return z               + "\n"
+                            + "/ " + y;
+        }
     }
 }
