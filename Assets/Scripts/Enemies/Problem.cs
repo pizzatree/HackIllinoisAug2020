@@ -72,7 +72,9 @@ namespace Enemies
                 return;
 
             targetGraphic.enabled = false;
-            EnemyManager.Inst.SolnAccepted(Variable);
+            EnemyManager.Inst.LaunchMissile(Variable);
+            EnemyManager.Inst.RemoveProblem(Variable);
+
             equationTF.text = variableTF.text = "";
             SendMessageUpwards("SolutionAccepted", SendMessageOptions.RequireReceiver);
             Destroy(this);
@@ -80,7 +82,7 @@ namespace Enemies
 
         private void OnMouseDown()
         {
-            EnemyManager.Inst.ForceSelect(Variable);
+            EnemyManager.Inst.SelectWithTouch(Variable);
             Target();
         }
     }

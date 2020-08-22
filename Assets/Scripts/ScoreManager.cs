@@ -8,9 +8,10 @@ public class ScoreManager : MonoBehaviour
 {
     public static ScoreManager Inst;
 
-    private TextMeshProUGUI scoreUI;
+    public int NumSuccessful { get; private set; } = 0;
 
-    private ulong currentScore = 0;
+    private TextMeshProUGUI scoreUI;
+    private ulong           currentScore = 0;
 
     private void Awake()
     {
@@ -25,17 +26,21 @@ public class ScoreManager : MonoBehaviour
     }
 
     public void ResetScore()
-        => currentScore = 0;
+    {
+        currentScore  = 0;
+        NumSuccessful = 0;
+    }
 
     public void AddScore(int amount)
     {
         currentScore += (ulong) amount;
+        ++NumSuccessful;
 
         if(scoreUI == null)
             scoreUI = GameObject.FindGameObjectWithTag("ScoreUI").GetComponent<TextMeshProUGUI>();
         scoreUI.text = currentScore.ToString();
 
-        if(currentScore % GameConstants.POINTS_TO_REVIVE == 0)
+        if(currentScore % Constants.POINTS_TO_REVIVE == 0)
             BaseManager.Inst?.RestoreBases();
     }
 

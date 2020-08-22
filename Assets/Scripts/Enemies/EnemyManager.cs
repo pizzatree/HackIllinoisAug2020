@@ -2,6 +2,7 @@
 using Questions;
 using Questions.Arithmetic;
 using UnityEngine;
+using Utilities;
 
 namespace Enemies
 {
@@ -9,22 +10,15 @@ namespace Enemies
     {
         public static EnemyManager Inst;
 
-        [SerializeField]
-        private GameObject[] enemies        = null,
-                             specialEnemies = null;
+        [SerializeField] private GameObject[] enemies        = null,
+                                              specialEnemies = null;
 
-        [SerializeField]
-        private float highSpawnTime = 4f, lowSpawnTime = 2.5f;
+        [SerializeField] private GameObject friendlyMissile  = null;
+        [SerializeField] private Transform  friendlySpawnPos = null;
 
-        [SerializeField]
-        private GameObject friendlyMissile = null;
-        [SerializeField]
-        private Transform friendlySpawnPos = null;
-
-        private Dictionary<char, Problem> activeEnemies = new Dictionary<char, Problem>();
+        private readonly Dictionary<char, Problem> activeEnemies = new Dictionary<char, Problem>();
 
         private int   difficulty        = 0, numSpawns = 0;
-        private float spawnXRange       = 6; // make dynamic with camera
         private char? activeEnemyLetter = null;
 
         private void Awake() => Inst = this;
@@ -32,28 +26,23 @@ namespace Enemies
 
         private void Update()
         {
-            bool acceptButton = Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter);
-            if(acceptButton && activeEnemyLetter.HasValue)
+            bool acceptButton = Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.Return) ||
+                                Input.GetKeyDown(KeyCode.KeypadEnter);
+            if(acceptButton)
+                Deselect();
+
+            var inputChar = KeyInput.GetKey(true);
+            if(inputChar.HasValue && activeEnemies.ContainsKey(inputChar.Value))
             {
                 Deselect();
-                activeEnemyLetter = null;
-            }
-
-            for(var letter = 'a'; letter <= 'z'; ++letter)
-            {
-                if(Input.GetKeyDown(letter.ToString()) && activeEnemies.ContainsKey(letter))
-                {
-                    if(activeEnemyLetter.HasValue && activeEnemyLetter.Value != letter)
-                        Deselect();
-
-                    Select(letter);
-                }
+                Select(inputChar.Value);
             }
         }
 
         private void Deselect()
         {
-            activeEnemies[activeEnemyLetter.Value].LoseTarget();
+            if(activeEnemyLetter.HasValue)
+                activeEnemies[activeEnemyLetter.Value].LoseTarget();
             activeEnemyLetter = null;
         }
 
@@ -65,60 +54,78 @@ namespace Enemies
 
         private void Select(char variable)
         {
+            if(!activeEnemies.ContainsKey(variable))
+                return;
             activeEnemies[variable].Target();
             activeEnemyLetter = variable;
         }
 
-        public void ForceSelect(char variable)
+        // Called via the enemy objects themselves based on touch/click input
+        public void SelectWithTouch(char variable)
         {
             if(activeEnemyLetter.HasValue)
                 Deselect();
-
             if(activeEnemies.ContainsKey(variable))
-            {
-                activeEnemies[variable].Target();
-                activeEnemyLetter = variable;
-            }
+                Select(variable);
         }
 
         private void SpawnEnemy()
         {
-            var spawnPoint = new Vector2((Random.Range(-spawnXRange, spawnXRange)), 7f);
-            var enemy      = enemies[Random.Range(0, enemies.Length)];
+            char variable = GenerateVariable();
+            if(activeEnemies.ContainsKey(variable))
+            {
+                // If we run out of attempts to find an unused, randomized variable -> STOP, try again later
+                Invoke("SpawnEnemy",
+                       Random.Range(Constants.ENEMY_BASE_SPAWN_TIME_LOW, Constants.ENEMY_BASE_SPAWN_TIME_HIGH));
+                return;
+            }
 
-            bool spawnSpecial = numSpawns % 25 == 24;
+            var enemy       = GenerateEnemy(out var newDifficulty, out var spawnPoint);
+            var newQuestion = GenerateQuestion();
+            var newEnemy    = Instantiate(enemy, spawnPoint, Quaternion.identity, transform);
+            var problem     = newEnemy.GetComponent<Problem>();
+            problem.AssignProperties(variable, newQuestion, newDifficulty);
+            activeEnemies.Add(variable, problem);
 
+            Invoke("SpawnEnemy",
+                   Random.Range(Constants.ENEMY_BASE_SPAWN_TIME_LOW, Constants.ENEMY_BASE_SPAWN_TIME_HIGH));
+        }
+
+        private char GenerateVariable()
+        {
+            char variable = (char) Random.Range('a', 'z' + 1);
+            for(int attempt = 0; attempt < 15 && activeEnemies.ContainsKey(variable); ++attempt)
+                variable = (char) Random.Range('a', 'z' + 1);
+
+            return variable;
+        }
+
+        private GameObject GenerateEnemy(out int newDifficulty, out Vector2 spawnPoint)
+        {
+            GameObject enemy;
+            bool spawnSpecial = numSpawns++ % Constants.ENEMY_SPECIAL_SPAWN_RATE ==
+                                Constants.ENEMY_SPECIAL_SPAWN_RATE - 1;
             if(spawnSpecial) // spawn a special enemy
             {
                 spawnPoint = new Vector2(10, Random.Range(-1f, 3f));
                 enemy      = specialEnemies[Random.Range(0,    specialEnemies.Length)];
             }
-
-            char variable = (char)Random.Range('a', 'z' + 1);
-            for(int attempt = 0; attempt < 15 && activeEnemies.ContainsKey(variable); ++attempt)
-                variable = (char)Random.Range('a', 'z' + 1);
-
-            // If we run out of attempts to find a nonused, randomized variable -> STOP, try again later
-            if(activeEnemies.ContainsKey(variable))
+            else
             {
-                Invoke("SpawnEnemy", Random.Range(lowSpawnTime, highSpawnTime));
-                return;
+                spawnPoint.x = Random.Range(-Constants.ENEMY_HORIZONTAL_SPAWN_RANGE,
+                                            Constants.ENEMY_HORIZONTAL_SPAWN_RANGE);
+                spawnPoint.y = Constants.ENEMY_VERTICAL_SPAWN_HEIGHT;
+                enemy        = enemies[Random.Range(0, enemies.Length)];
             }
 
-            var newQuestion   = GenerateQuestion();
-            var newDifficulty = (spawnSpecial) ? difficulty + 5 : difficulty;
-            var newEnemy      = Instantiate(enemy, spawnPoint, Quaternion.identity, transform);
-            newEnemy.GetComponent<Problem>().AssignProperties(variable, newQuestion, newDifficulty);
+            newDifficulty = (spawnSpecial) ? difficulty + 5 : difficulty;
 
-            activeEnemies.Add(variable, newEnemy.GetComponent<Problem>());
-
-            Invoke("SpawnEnemy", Random.Range(lowSpawnTime, highSpawnTime));
+            return enemy;
         }
 
         private IQuestion GenerateQuestion()
         {
-            difficulty = numSpawns++ / 3; // use numsuccessful instead
-
+            difficulty = ScoreManager.Inst.NumSuccessful / Constants.DIFFICULTY_INCREASE_RATE;
             switch(Random.Range(0, 4))
             {
                 case 0:  return new Add();
@@ -129,15 +136,12 @@ namespace Enemies
             }
         }
 
-        public void SolnAccepted(char variable)
+        public void LaunchMissile(char variable)
         {
-            var missile =
-                Instantiate(friendlyMissile, friendlySpawnPos.position, Quaternion.identity)
-                    .GetComponent<FriendlyMissile>();
+            var missile = Instantiate(friendlyMissile, friendlySpawnPos.position, Quaternion.identity)
+                .GetComponent<FriendlyMissile>();
 
             missile.SetTarget(activeEnemies[variable].GetComponent<Enemy>());
-
-            RemoveProblem(variable);
         }
 
         public void RemoveProblem(char variable)
