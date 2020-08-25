@@ -133,6 +133,7 @@ GameObject:
   m_Component:
   - component: {fileID: 279926480}
   - component: {fileID: 279926479}
+  - component: {fileID: 279926481}
   m_Layer: 0
   m_Name: Enemy Spawner
   m_TagString: Untagged
@@ -152,14 +153,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4b73534c3c93084ab5fd61bbe5f9376, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemies:
-  - {fileID: 5189607767417217558, guid: d70fd7ab24a10844fa6af886ea49cdd1, type: 3}
-  - {fileID: 1497206554341019031, guid: 4266bef2e72822445a7a989fb7d01ce9, type: 3}
-  - {fileID: 4157203984045523269, guid: 509e4b9cff9cd9e4d9ea048febc1b770, type: 3}
-  specialEnemies:
-  - {fileID: 6238541855312332893, guid: 7c8b983fff557ec439a0ea6694a30e8d, type: 3}
-  highSpawnTime: 3.25
-  lowSpawnTime: 2.5
   friendlyMissile: {fileID: 9209113729582266983, guid: d999c06a25dfd504c9566eb670a82a10, type: 3}
   friendlySpawnPos: {fileID: 1003603090}
 --- !u!4 &279926480
@@ -176,6 +169,24 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &279926481
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 279926478}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15879df33421e014eb8d4c003a32db3d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemies:
+  - {fileID: 5189607767417217558, guid: d70fd7ab24a10844fa6af886ea49cdd1, type: 3}
+  - {fileID: 1497206554341019031, guid: 4266bef2e72822445a7a989fb7d01ce9, type: 3}
+  - {fileID: 4157203984045523269, guid: 509e4b9cff9cd9e4d9ea048febc1b770, type: 3}
+  specialEnemies:
+  - {fileID: 6238541855312332893, guid: 7c8b983fff557ec439a0ea6694a30e8d, type: 3}
 --- !u!1 &427062252
 GameObject:
   m_ObjectHideFlags: 0
